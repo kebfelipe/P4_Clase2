@@ -1,0 +1,34 @@
+version: '3'
+services:
+  mi-mongo:
+    container_name: mi-mongo
+    hostname: mi-mongo
+    image: mongo:6.0
+    ports:
+      - 8001:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=ADMIN
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - C:\Users\kebfelipe\CodigoTK\P4\datos:/data/db
+    networks:
+      - mi-red
+
+  mi-archivo:
+    container_name: mi-archivo
+    hostname: mi-archivo
+    image: bitnami/minio:2022
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=!zeaalfa1
+    ports:
+      - '10003:9000'
+      - '10004:9001'
+    volumes:
+      - 'C:\Users\kebfelipe\CodigoTK\P4\datosMinio:/data'
+    networks:
+      - mi-red
+    
+networks:
+  mi-red:
+    driver: bridge
